@@ -22,17 +22,8 @@ var firebaseConfig = {
 
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
-//firebase.initializeApp(firebaseConfig);
-// var admin = require("firebase-admin");
-
-// const serviceAccount = require('./path/to/serviceAccountKey.json');
-
-// admin.initializeApp({
-//   credential: admin.credential.cert(serviceAccount)
-// });
 
 const db = firebase.firestore();
-
 
 
 app.use(bodyParser.urlencoded({extended: true}));
@@ -50,11 +41,6 @@ app.post('/', function(req, res) {
     var email = String(req.body.email);
     var password = String(req.body.phone);
     var sendEmail = 0;
-
-
-
-    getValue(firstName, lastName, email);
-
 
     firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
         // Handle Errors here.
@@ -106,19 +92,6 @@ app.post('/', function(req, res) {
 
 });
 
-
-async function getValue (firstName, lastName, email){
-
-    const docRef = db.collection('users').doc('email');
-    // const time = Date.now();
-
-    await docRef.set({
-        time: '2',
-        email: 'word',
-        firstName: 'word',
-        lastName: 'word'
-      });
-};
 
 app.listen(port, function(){
   console.log("Server running");
