@@ -13,13 +13,11 @@ console.log(process.env);
 
 var firebaseConfig = {
   apiKey: process.env.API_KEY,
-  authDomain: "digeo-jobs-app.firebaseapp.com",
-  databaseURL: "https://digeo-jobs-app.firebaseio.com",
-  projectId: "digeo-jobs-app",
-  storageBucket: "digeo-jobs-app.appspot.com",
-  messagingSenderId: "897673896316",
-  appId: "1:897673896316:web:52d1d78d21299a9c7444f9",
-  measurementId: "G-SZKD2FDKWS"
+  authDomain: "dash-jobs.firebaseapp.com",
+  projectId: "dash-jobs",
+  storageBucket: "dash-jobs.appspot.com",
+  messagingSenderId: "442347759795",
+  appId: "1:442347759795:web:d7012e71dd2588038168c6"
 };
 
 // Initialize Firebase
