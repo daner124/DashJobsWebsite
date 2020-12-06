@@ -42,32 +42,8 @@ app.post('/', function(req, res) {
     var date = new Date();
     var dateString = String(date.getTime());
 
-    firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
-        // Handle Errors here.
-        var errorCode = error.code;
-        var errorMessage = error.message;
-
-
-        switch (errorCode) {
-          case 'auth/email-already-in-use':
-            console.log(`Email address already in use.`);
-            break;
-          case 'auth/invalid-email':
-            console.log(`Email address is invalid.`);
-            break;
-          case 'auth/operation-not-allowed':
-            console.log(`Error during sign up.`);
-            break;
-          case 'auth/weak-password':
-            console.log('Password is not strong enough. Add additional characters including special characters and numbers.');
-            break;
-          default:
-            console.log(error.message);
-            break;
-        }
-    });
-
-    const docRef = db.collection("users").doc(email);
+    firebase.auth().createUserWithEmailAndPassword(email, password).then(function(){
+      const docRef = db.collection("users").doc(email);
 
       docRef.set({
         email: email,
@@ -75,6 +51,35 @@ app.post('/', function(req, res) {
         lastName: lastName,
         date: dateString
       });
+    });
+    
+    
+    // catch(function(error) {
+    //     // Handle Errors here.
+    //     var errorCode = error.code;
+    //     var errorMessage = error.message;
+
+
+    //     switch (errorCode) {
+    //       case 'auth/email-already-in-use':
+    //         console.log(`Email address already in use.`);
+    //         break;
+    //       case 'auth/invalid-email':
+    //         console.log(`Email address is invalid.`);
+    //         break;
+    //       case 'auth/operation-not-allowed':
+    //         console.log(`Error during sign up.`);
+    //         break;
+    //       case 'auth/weak-password':
+    //         console.log('Password is not strong enough. Add additional characters including special characters and numbers.');
+    //         break;
+    //       default:
+    //         console.log(error.message);
+    //         break;
+    //     }
+    // });
+
+    
 
     res.sendFile(__dirname + '/signedUp.html');
 
