@@ -70,11 +70,12 @@ app.post('/', function(req, res) {
 
     const docRef = db.collection('users').doc(email);
 
+    const date = Date.getTime();
     docRef.set({
       first: firstName,
       last: lastName,
       email: email,
-      date: getTime()
+      date: date
     });
 
     res.sendFile(__dirname + '/signedUp.html');
