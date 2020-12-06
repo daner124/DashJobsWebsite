@@ -2,7 +2,6 @@
 require('dotenv').config();
 require("firebase/auth");
 require("firebase/firestore");
-const admin = require('firebase-admin');
 const express = require('express');
 const bodyParser = require('body-parser');
 var firebase = require("firebase/app");
@@ -23,9 +22,6 @@ var firebaseConfig = {
 
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
-admin.initializeApp();
-
-const db = admin.firestore();
 
 
 app.use(bodyParser.urlencoded({extended: true}));
@@ -66,16 +62,6 @@ app.post('/', function(req, res) {
             console.log(error.message);
             break;
         }
-    });
-
-    const docRef = db.collection('users').doc(email);
-
-    const date = Date.getTime();
-    docRef.set({
-      first: firstName,
-      last: lastName,
-      email: email,
-      date: date
     });
 
     res.sendFile(__dirname + '/signedUp.html');
