@@ -73,6 +73,7 @@ app.post('/', function(req, res) {
     });
 
     res.sendFile(__dirname + '/signedUp.html');
+    app.use(express.static(__dirname + '/resources'));
 
 
 });
