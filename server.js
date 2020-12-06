@@ -42,7 +42,7 @@ app.post('/', function(req, res) {
     var date = new Date();
     var dateString = String(date.getTime());
 
-    firebase.auth().createUserWithEmailAndPassword(email, password).try(function(){
+    firebase.auth().createUserWithEmailAndPassword(email, password).then((user) => {
       const docRef = db.collection("users").doc(email);
 
       docRef.set({
@@ -52,7 +52,7 @@ app.post('/', function(req, res) {
         date: dateString
       });
     })
-    .catch(function(error) {
+    .catch((error) => {
         // Handle Errors here.
         var errorCode = error.code;
         var errorMessage = error.message;
