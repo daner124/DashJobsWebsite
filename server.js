@@ -67,13 +67,13 @@ app.post('/', function(req, res) {
         }
     });
 
-    const docRef = db.collection("users").doc("${email}");
+    const docRef = db.collection("users").doc(email);
 
       docRef.set({
-        email: "${email}",
-        firstName: "${firstName}",
-        lastName: "${lastName}",
-        date: "${dateString}"
+        email: email,
+        firstName: firstName,
+        lastName: lastName,
+        date: dateString
       });
 
     res.sendFile(__dirname + '/signedUp.html');
