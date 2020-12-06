@@ -22,6 +22,7 @@ var firebaseConfig = {
 
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
 
 
 app.use(bodyParser.urlencoded({extended: true}));
@@ -38,6 +39,8 @@ app.post('/', function(req, res) {
     var lastName = String(req.body.lastName);
     var email = String(req.body.email);
     var password = String(req.body.phone);
+    var date = new Date();
+    var dateString = String(date.getTime());
 
     firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
         // Handle Errors here.
@@ -63,6 +66,15 @@ app.post('/', function(req, res) {
             break;
         }
     });
+
+    const docRef = db.collection("users").doc("${email}");
+
+      docRef.set({
+        email: "${email}",
+        firstName: "${firstName}",
+        lastName: "${lastName}",
+        date: "${dateString}"
+      });
 
     res.sendFile(__dirname + '/signedUp.html');
 
