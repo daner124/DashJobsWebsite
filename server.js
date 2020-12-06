@@ -40,7 +40,7 @@ app.post('/', function(req, res) {
     var lastName = String(req.body.lastName);
     var email = String(req.body.email);
     var password = String(req.body.phone);
-    var sendEmail = 0;
+    //var sendEmail = 0;
 
     firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
         // Handle Errors here.
@@ -71,21 +71,6 @@ app.post('/', function(req, res) {
             break;
         }
     });
-
-    //sends email only if user is new
-    if(sendEmail == 0) {
-        firebase.auth().onAuthStateChanged(function(user) {
-          if (user) {
-            user.sendEmailVerification().then(function() {
-              // Email sent.
-            }).catch(function(error) {
-              // An error happened.
-            });
-          } else {
-            // No user is signed in.
-          }
-        });
-    }
 
     res.sendFile(__dirname + '/signedUp.html');
 
