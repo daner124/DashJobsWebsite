@@ -51,23 +51,18 @@ app.post('/', function(req, res) {
         switch (errorCode) {
           case 'auth/email-already-in-use':
             console.log(`Email address already in use.`);
-            sendEmail++;
             break;
           case 'auth/invalid-email':
             console.log(`Email address is invalid.`);
-            sendEmail++;
             break;
           case 'auth/operation-not-allowed':
             console.log(`Error during sign up.`);
-            sendEmail++;
             break;
           case 'auth/weak-password':
             console.log('Password is not strong enough. Add additional characters including special characters and numbers.');
-            sendEmail++;
             break;
           default:
             console.log(error.message);
-            sendEmail++;
             break;
         }
     });
