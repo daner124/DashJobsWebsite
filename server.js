@@ -2,6 +2,7 @@
 require('dotenv').config();
 require("firebase/auth");
 require("firebase/firestore");
+const admin = require('firebase-admin');
 const express = require('express');
 const bodyParser = require('body-parser');
 var firebase = require("firebase/app");
@@ -22,8 +23,9 @@ var firebaseConfig = {
 
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
+admin.initializeApp();
 
-const db = firebase.firestore();
+const db = admin.firestore();
 
 
 app.use(bodyParser.urlencoded({extended: true}));
@@ -40,7 +42,6 @@ app.post('/', function(req, res) {
     var lastName = String(req.body.lastName);
     var email = String(req.body.email);
     var password = String(req.body.phone);
-    //var sendEmail = 0;
 
     firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
         // Handle Errors here.
@@ -65,6 +66,15 @@ app.post('/', function(req, res) {
             console.log(error.message);
             break;
         }
+    });
+
+    const docRef = db.collection('users').doc(email);
+
+    docRef.set({
+      first: firstName,
+      last: lastName,
+      email: email,
+      date: getTime()
     });
 
     res.sendFile(__dirname + '/signedUp.html');
